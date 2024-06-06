@@ -43,3 +43,52 @@ jobs:
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Build and Alnalyze with SonarQube
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: Trivy File Scan
+        run: trivy fs . > trivyfs.txt
+
+      - name: Trivy CIS Compliance Issue
+        run: $ trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > trivy_image_compliance.txt
+  
+  deploy:
+    needs: build-analyze-scan
+    runs-on: ubuntu-latest  #[ self-hosted ]
+    steps:
+      - name: docker pull image
+        run: docker pull xerxez786/my-streamlit-app:latest
+
+      - name: Image scan
+        run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
+
+      - name: Deploy to container
+        run: docker run -d --name webapp -p 8501:8501 xerxez786/my-streamlit-app:latest
+
+      - name: Update kubeconfig
+        run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
+
+      - name: Deploy to kubernetes
+        run: kubectl apply -f deployment-service.yml
+      
+      - name: Send a Slack Notification
+        if: always()
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#githubactions-eks'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+
+
+
+
+
+
+
