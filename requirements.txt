@@ -1,0 +1,16 @@
+streamlit>=1.31.0
+python-dotenv
+google-generativeai
+langchain_google_genai
+langchain-community
+streamlit-authenticator==0.1.5
+razorpay
+pdf2image
+PyPDF2
+faiss-cpu
+langchain_google_genai
+langchain-community
+python-pptx
+streamlit-authenticator==0.1.5
+langchain
+PyPDF2
