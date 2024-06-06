@@ -34,10 +34,10 @@ jobs:
 
       - name: Docker Build and Push
         run: |
-          docker build -t generativeai .
-          docker tag generativeai xerxez786/genai:latest
+          docker build -t my-streamlit-app .
+          docker tag my-streamlit-app xerxez786/my-streamlit-app:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker push xerxez786/genai:latest
+          docker push xerxez786/my-streamlit-app:latest
 
       - name: Lint with flake8
         run: |
