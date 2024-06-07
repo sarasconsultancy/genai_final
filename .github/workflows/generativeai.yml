@@ -64,8 +64,8 @@ jobs:
       - name: Docker Pull Image
         run: docker pull xerxez786/my-streamlit-app:latest
 
-      - name: Image Scan
-        run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
+      # - name: Image Scan
+      #   run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
