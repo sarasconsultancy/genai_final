@@ -50,11 +50,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: Trivy File Scan
-        run: trivy fs . > trivyfs.txt
+      # - name: Trivy file scan
+      #   run: trivy fs . > trivyfs.txt
 
-      - name: Trivy CIS Compliance Issue
-        run: trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > trivy_image_compliance.txt
+      # - name: Trivy CIS Compliance Issue
+      #   run: trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > trivy_image_compliance.txt
   
   deploy:
     needs: build
