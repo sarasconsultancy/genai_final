@@ -24,7 +24,8 @@ st.write(
 # For Streamlit Deployement Load environment variables
 #genai_api_key = st.config["GOOGLE_API_KEY"]
 #genai.configure(api_key=genai_api_key)
-genai.configure(api_key=os.getenv("api_key"))
+#genai.configure(api_key=os.getenv("api_key"))
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Function to extract text from PDF files
 def get_pdf_text(pdf_docs):

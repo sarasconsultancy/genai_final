@@ -16,10 +16,10 @@ st.write(
 # 🕵️ EMAIL EXTRACTOR
 """
 )
-
-GOOGLE_API_KEY = os.getenv("api_key")
-# Set up Google Gemini-Pro AI model
-genai.configure(api_key=GOOGLE_API_KEY)
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+# GOOGLE_API_KEY = os.getenv("api_key")
+# # Set up Google Gemini-Pro AI model
+# genai.configure(api_key=GOOGLE_API_KEY)
 
 markdown = """
 Web App URL: <https://geotemplate.streamlit.app>

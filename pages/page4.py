@@ -8,8 +8,8 @@ import re
 from dotenv import load_dotenv
 load_dotenv()
 
-genai.configure(api_key=os.getenv("api_key"))
-
+#genai.configure(api_key=os.getenv("api_key"))
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 generation_config = {
     "temperature":1,
     "top_p": 0.95,

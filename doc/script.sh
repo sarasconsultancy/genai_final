@@ -23,7 +23,8 @@ sudo apt install temurin-17-jdk -y
 /usr/bin/java --version
 
 #SONARQUBE INSTALLATION
-sqp_45e8752e2f0636f18b67629a2243b9cc5a4e0c05
+docker run -d --name sonar --restart unless-stopped -p 9000:9000 sonarqube:lts-community
+
 # Install Trivy
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
@@ -49,3 +50,5 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 sudo apt-get install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
+
+echo "All the tools are installed successfully, kindly check the versions of the tools"

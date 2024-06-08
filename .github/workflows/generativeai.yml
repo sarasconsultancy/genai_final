@@ -38,6 +38,8 @@ jobs:
           docker tag my-streamlit-app xerxez786/my-streamlit-app:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push xerxez786/my-streamlit-app:latest
+        env:
+          DOCKER_CLI_ACI: 1
 
       - name: Lint with flake8
         run: |
@@ -50,52 +52,34 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      # - name: Trivy file scan
-      #   run: trivy fs . > trivyfs.txt
+      - name: Trivy file scan
+        run: trivy fs . > trivyfs.txt
 
-      # - name: Trivy CIS Compliance Issue
-      #   run: trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > trivy_image_compliance.txt
+      - name: Image Scan
+        run: trivy image xerxez786/my-streamlit-app:latest > trivyimagebuild.txt
+
+      - name: Trivy CIS Compliance Issue
+        run: trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > compliance.txt
   
   deploy:
     needs: build
     runs-on: ubuntu-latest  # [ self-hosted ]
-
     steps:
       - name: Docker Pull Image
         run: docker pull xerxez786/my-streamlit-app:latest
 
-      # - name: Image Scan
-      #   run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
+      - name: Image Scan
+        run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+      - name: Deploy to container
+        run: docker run -d --name genai -p 8501:8501 xerxez786/my-streamlit-app:latest
 
-      - name: Setup kubectl
-        uses: actions-hub/kubectl@master
-        with:
-          version: '1.17'
-    
       - name: Update kubeconfig
         run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
     
-      - name: Deploy to EKS
-        run: |
-          kubectl apply -f EKS_CLOUD/deployment.yaml
-          kubectl apply -f EKS_CLOUD/service.yaml
-      
-      # - name: Deploy to Container
-      #   run: docker run -d --name webapp -p 8501:8501 xerxez786/my-streamlit-app:latest
-
-      # - name: Update Kubeconfig
-      #   run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
-
-      # - name: Deploy to Kubernetes
-      #   run: kubectl apply -f deployment.yml
-      
+      - name: Deploy to kubernetes
+        run: kubectl apply -f deployment-service.yml
+          
       - name: Send a Slack Notification
         if: always()
         uses: act10ns/slack@v1
