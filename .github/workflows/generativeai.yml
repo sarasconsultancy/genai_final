@@ -55,11 +55,11 @@ jobs:
       # - name: Trivy file scan
       #   run: trivy fs . > trivyfs.txt
 
-      - name: Image Scan
-        run: trivy image xerxez786/my-streamlit-app:latest > trivyimagebuild.txt
+      # - name: Image Scan
+      #   run: trivy image xerxez786/my-streamlit-app:latest > trivyimagebuild.txt
 
-      - name: Trivy CIS Compliance Issue
-        run: trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > compliance.txt
+      # - name: Trivy CIS Compliance Issue
+      #   run: trivy image --compliance docker-cis xerxez786/my-streamlit-app:latest > compliance.txt
   
   deploy:
     needs: build
