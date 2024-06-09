@@ -84,7 +84,7 @@ jobs:
         run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
     
       - name: Deploy to kubernetes
-        run: kubectl apply -f deploymentservice.yml
+        run: kubectl apply -f generative-ai/deploymentservice.yml
           
       - name: Send a Slack Notification
         if: always()
