@@ -23,7 +23,7 @@ RUN apt-get update && \
 # Copy the application code
 COPY . .
 COPY navigation.py navigation.py
-COPY .env .env
+#COPY .env .env
 
 # Set environment variables for the virtual environment
 ENV PATH="/py/bin:$PATH"
