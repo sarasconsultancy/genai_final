@@ -29,6 +29,6 @@ spec:
     app: generative-ai
   ports:
   - protocol: TCP
-    port: 80                 # Expose port 80
+    port: 8501                # Expose port 80
     targetPort: 8501
   type: LoadBalancer
