@@ -68,8 +68,8 @@ jobs:
       - name: Docker Pull Image
         run: docker pull xerxez786/my-streamlit-app:latest
 
-      - name: Image Scan
-        run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
+      # - name: Image Scan
+      #   run: trivy image xerxez786/my-streamlit-app:latest > trivyimagedeploy.txt
 
       - name: Deploy to container
         run: docker run -d --name genai -p 8501:8501 xerxez786/my-streamlit-app:latest
