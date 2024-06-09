@@ -25,6 +25,9 @@ sudo apt install temurin-17-jdk -y
 #SONARQUBE INSTALLATION
 docker run -d --name sonar --restart unless-stopped -p 9000:9000 sonarqube:lts-community
 
+# DOCKER SCOUTE
+docker scout install -y
+
 # Install Trivy
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
