@@ -7,14 +7,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: generative_ai
+      app: generative-ai
   template:
     metadata:
       labels:
-        app: generative_ai
+        app: generative-ai
     spec:
       containers:
-      - name: generative_ai
+      - name: generative-ai
         image: xerxez786/my-streamlit-app:latest
         ports:
         - containerPort: 8501   # Use port 8501
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: generative_ai
+  name: generative-ai
 spec:
   selector:
-    app: generative_ai
+    app: generative-ai
   ports:
   - protocol: TCP
     port: 80                 # Expose port 80
