@@ -82,9 +82,15 @@ jobs:
 
       - name: Update kubeconfig
         run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
-    
+
+      - name: Verify deployment file existence
+        run: ls -l deploymentservice.yml
+
       - name: Deploy to kubernetes
-        run: kubectl apply -f genai_final/deploymentservice.yml
+        run: kubectl apply -f deploymentservice.yml
+    
+      # - name: Deploy to kubernetes
+      #   run: kubectl apply -f genai_final/deploymentservice.yml
           
       - name: Send a Slack Notification
         if: always()
