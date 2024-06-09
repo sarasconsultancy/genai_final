@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generativeai
+spec:
+  replicas: 1  # You can adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: generativeai
+  template:
+    metadata:
+      labels:
+        app: generativeai
+    spec:
+      containers:
+      - name: gen-container
+        image: xerxez786/my-streamlit-app:latest 
+        ports:
+        - containerPort: 8501
