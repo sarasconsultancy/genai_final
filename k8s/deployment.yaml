@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Pod
 metadata:
   name: generativeai
 spec:
@@ -13,7 +13,7 @@ spec:
         app: generativeai
     spec:
       containers:
-      - name: gen-container
+      - name: genai-container
         image: xerxez786/my-streamlit-app:latest 
         ports:
         - containerPort: 8501
