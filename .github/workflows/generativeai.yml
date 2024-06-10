@@ -89,8 +89,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Deploy to container
-        run: docker run -d --name genai_app -p 8501:8501 xerxez786/my-streamlit-app:latest
+      # - name: Deploy to container
+      #   run: docker run -d --name genai_app -p 8501:8501 xerxez786/my-streamlit-app:latest
 
       - name: Update kubeconfig
         run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
