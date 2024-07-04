@@ -2,9 +2,12 @@ import json
 from defectdojo_api import defectdojo_apiv2 as defectdojo
 
 # Replace these values with your actual DefectDojo instance details
-DOJO_URL = 'https://your-defectdojo-instance.com'
-API_KEY = 'your_api_key'
-USERNAME = 'your_username'
+DOJO_URL = 'https://demo.defectdojo.org'
+API_KEY = '548afd6fab3bea9794a41b31da0e9404f733e222'
+USERNAME = 'admin'
+#DOJO_ENGAGEMENT_ID = ''
+#DOJO_PRODUCT_ID = ''
+
 
 # Initialize the DefectDojo API client
 dd = defectdojo.DefectDojoAPIv2(
