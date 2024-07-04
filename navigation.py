@@ -27,6 +27,7 @@ def make_sidebar():
             st.page_link("pages/page4.py", label="Disease Prediction AND Recomendation", icon="🛏")
             st.page_link("pages/page5.py", label="Multiple PDF & PTX Extractor", icon="📋")
             st.page_link("pages/page6.py", label="Email Generator", icon="✉️")
+            st.page_link("pages/page7.py", label="RAG on Data", icon="📜")
 
             st.write("")
             st.write("")

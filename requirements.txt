@@ -8,8 +8,9 @@ razorpay
 pdf2image
 PyPDF2
 faiss-cpu
-langchain_google_genai
 langchain-community
 python-pptx
 langchain
 PyPDF2
+faiss-cpu
+pypdf

@@ -1,0 +1,5 @@
+https://github.com/SriLaxmi1993/Document-Genie-using-RAG-Framwork/blob/main/streamlit_App.py
+
+
+
+https://blogs.novita.ai/step-by-step-tutorial-on-integrating-retrieval-augmented-generation-rag-with-large-language-models/?utm_source=medium_LLM&utm_medium=article&utm_campaign=RAG

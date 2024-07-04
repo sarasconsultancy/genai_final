@@ -32,6 +32,11 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: echo "GOOGLE_API_KEY=${GOOGLE_API_KEY}" >> $GITHUB_ENV
 
+      - name: Stop and remove container if running
+        run: |
+         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+         docker ps -q --filter "name=my-streamlit-app" | grep -q . && docker stop my-streamlit-app && docker rm -fv my-streamlit-app
+
       - name: Docker Build and Push
         run: |
           docker build -t my-streamlit-app .
@@ -63,7 +68,7 @@ jobs:
   
   deploy:
     needs: build
-    runs-on: [ self-hosted ]  #ubuntu-latest
+    runs-on: [ ubuntu-latest ]  #self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -96,10 +101,10 @@ jobs:
         run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
 
       - name: Deploy to kubernetes
-        run: kubectl apply -f ./deployment.yaml
+        run: kubectl apply -f ./deployment.yaml --validate=false
 
       - name: Deploy to Load Balancer
-        run: kubectl apply -f ./service.yaml
+        run: kubectl apply -f ./service.yaml --validate=false
           
       - name: Send a Slack Notification
         if: always()

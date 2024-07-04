@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+ sast_scan:
+   name: Run Bandit Scan
+   runs-on: ubuntu-latest
+
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v2
+
+   - name: Set up Python
+     uses: actions/setup-python@v2
+     with:
+       python-version: 3.11
+
+   - name: Install Bandit
+     run: pip install bandit
+
+   - name: Run Bandit Scan
+     run: bandit -ll -ii -r . -f json -o bandit-report.json  
+     # -ll : This sets the log level to debug, meaning Bandit will provide detailed information about its execution.
+     # -ii : This makes Bandit provide extra information about the issues it finds.
+     # -r .: This tells Bandit to recursively scan all Python files in the current directory (represented by .).
+     # -f json : This specifies the output format. In this case, it's set to json, meaning the report will be in JSON format.
+     # bandit-report.json: This specifies the output file where the report will be saved. Here, the report will be saved to a file named bandit-report.json.
+
+   - name: Upload Artifact
+     uses: actions/upload-artifact@v3
+     if: always()
+     with:
+      name: bandit-findings
+      path: bandit-report.json

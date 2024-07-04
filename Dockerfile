@@ -20,6 +20,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     useradd --no-log-init --system --create-home webapp
 
+#API KEY
+#ARG GEMINI_API_KEY1
+#ENV GEMINI_API_KEY=$GEMINI_API_KEY1
+
 # Copy the application code
 COPY . .
 COPY navigation.py navigation.py
